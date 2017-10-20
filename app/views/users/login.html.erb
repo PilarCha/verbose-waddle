@@ -1,0 +1,27 @@
+<h1>Lender Login</h1>
+<%if flash[:notice]%>
+<%=flash[:notice]%>
+<%end%>
+<form action="/sessionsl" method="post">
+  <input type = 'hidden' name = "authenticity_token" value = "<%=form_authenticity_token%>">
+  <label>Email</label>
+  <input type="text" name="email"><br>
+  <label>Password</label>
+  <input type="text" name="password"><br>
+  <input type="submit" value="Login">
+  <a href="/register">Not a member???????????</a>
+</form>
+
+<h1>Borrower Login</h1>
+<%if flash[:alert]%>
+<%=flash[:alert]%>
+<%end%>
+<form action="/sessionsb" method="post">
+  <input type = 'hidden' name = "authenticity_token" value = "<%=form_authenticity_token%>">
+  <label>Email</label>
+  <input type="text" name="email"><br>
+  <label>Password</label>
+  <input type="text" name="password"><br>
+  <input type="submit" value="Login">
+  <a href="/register">Not a member???????????</a>
+</form>

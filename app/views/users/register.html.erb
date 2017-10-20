@@ -1,0 +1,76 @@
+<style media="screen">
+  fieldset{
+    width: 30%;
+  }
+  .error{
+    color: red;
+  }
+  flash[:notice]{
+    color: green;
+  }
+  flash[:alert]{
+    color: yellow;
+    }
+</style>
+<h1>Welcome Son!</h1>
+<%if flash[:notice]%>
+<%=flash[:notice]%>
+<%end%>
+<fieldset>
+  <legend><h2>Lender</h2></legend>
+  <%if flash[:errors]%>
+  <%flash[:errors].each do |error|%>
+  <div class="error">
+    <%=error%>
+  </div>
+  <%end%>
+  <%end%>
+  <form action="/lenders" method="post">
+    <input type = 'hidden' name = "authenticity_token" value = "<%=form_authenticity_token%>">
+    <label>First Name</label>
+    <input type="text" name="lender[first_name]"><br>
+    <label>Last Name</label>
+    <input type="text" name="lender[last_name]"><br>
+    <label>Email</label>
+    <input type="text" name="lender[email]"><br>
+    <label>Password</label>
+    <input type="text" name="lender[password]"><br>
+    <label>Password Confirmation</label>
+    <input type="text" name="lender[password_confirmation]"><br>
+    <label>Money</label>
+    <input type="number" name='lender[money]' min='0' value='100' step="100">
+    <input type="submit" value="Register">
+    <a href="/login">Already a member?!</a>
+  </form>
+</fieldset>
+<fieldset>
+  <legend><h2>Borrower</h2></legend>
+  <%if flash[:alert]%>
+  <%flash[:alert].each do |a|%>
+  <div class="error">
+    <%=a%>
+  </div>
+  <%end%>
+  <%end%>
+  <form action="/borrowers" method="post">
+    <input type = 'hidden' name = "authenticity_token" value = "<%=form_authenticity_token%>">
+    <label>First Name</label>
+    <input type="text" name="borrower[first_name]"><br>
+    <label>Last Name</label>
+    <input type="text" name="borrower[last_name]"><br>
+    <label>Email</label>
+    <input type="text" name="borrower[email]"><br>
+    <label>Password</label>
+    <input type="text" name="borrower[password]"><br>
+    <label>Password Confirmation</label>
+    <input type="text" name="borrower[password_confirmation]"><br>
+    <label>Need money for:</label>
+    <input type="text" name="borrower[purpose]"><br>
+    <label>Description</label>
+    <input type="text" name="borrower[description]"><br>
+    <label>Amount Needed</label>
+    <input type="number" name='borrower[money]' min='0' value='100' step="100">
+    <input type="submit" value="Register">
+    <a href="/login">Already a member?!</a>
+  </form>
+</fieldset>

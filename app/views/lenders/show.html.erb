@@ -1,0 +1,71 @@
+<style media="screen">
+  .error{
+    color: red;
+  }
+</style>
+<h3>Name:  <%=@user.first_name%></h3>
+<h3>Amount in Balance!  <%=@user.money%></h3>
+<%if flash[:notice]%>
+<div class="error">
+<%=flash[:notice]%>
+</div>
+<%end%>
+
+<a href="/logout">Logout!</a>
+<h2>People in need</h2>
+<table>
+  <thead>
+    <tr>
+      <th>name</th>
+      <th>Money Needed for</th>
+      <th>Description</th>
+      <th>Amount Needed</th>
+      <th>Amount Raised</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%@need.each do |a|%>
+    <tr>
+      <td><%=a.first_name%></td>
+      <td><%=a.purpose%></td>
+      <td><%=a.description%></td>
+      <td><%=a.money%></td>
+      <td><%=a.raised.to_i%></td>
+      <form action="/histories/<%=a.id%>" method="post">
+        <input type = 'hidden' name = "authenticity_token" value = "<%=form_authenticity_token%>">
+        <td><input type="number" name='amount' min='0' value='100' step="100"><button type="submit" >Lend</button></td>
+      </form>
+
+    </tr>
+    <%end%>
+  </tbody>
+</table>
+<h2>People you've helped!</h2>
+<table>
+  <thead>
+    <tr>
+      <th>name</th>
+      <th>Money used for</th>
+      <th>Description</th>
+      <th>Amount Needed</th>
+      <th>Amount Raised</th>
+      <th>Amount lent</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%@lent.each do |l|%>
+      <tr>
+        <td><%=l.borrower.first_name%></td>
+        <td><%=l.borrower.purpose%></td>
+        <td><%=l.borrower.description%></td>
+        <td><%=l.borrower.money%></td>
+        <td><%=l.borrower.raised%></td>
+        <td><%=l.amount%></td>
+
+      </tr>
+    <%end%>
+
+
+  </tbody>
+</table>

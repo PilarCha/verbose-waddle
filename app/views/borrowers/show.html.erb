@@ -1,0 +1,25 @@
+<a href="/logout">Logout!</a>
+<h2>Name: <%=@user.first_name%></h2>
+<h2>Amount Needed:<%=@user.money%> </h2>
+<h2>Raised:<%=@user.raised%></h2>
+
+<h1>List of people who lent you money</h1>
+<table>
+  <thead>
+    <tr>
+      <th>name</th>
+      <th>email</th>
+      <th>Amount Lent</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%@lenders.each do |l|%>
+    <tr>
+      <td><%=l.lender.first_name%></td>
+      <td><%=l.lender.email%></td>
+      <td><%=l.amount%></td>
+    </tr>
+    <%end%>
+
+  </tbody>
+</table>
