@@ -2,21 +2,29 @@
   .error{
     color: red;
   }
+  body{
+    background-color: white
+  }
 </style>
-<h3>Name:  <%=@user.first_name%></h3>
-<h3>Amount in Balance!  <%=@user.money%></h3>
+<header class="header">
+  <header id="header">
+    <a href="#" class="logo">Welcome Back: <%=@user.first_name%><br>
+     Amount in Balance:  $<%=@user.money%></a>
+  </header>
+  <a href="/logout">Logout!</a>
+</header>
 <%if flash[:notice]%>
 <div class="error">
 <%=flash[:notice]%>
 </div>
 <%end%>
 
-<a href="/logout">Logout!</a>
 <h2>People in need</h2>
 <table>
   <thead>
     <tr>
-      <th>name</th>
+      <th>First Name</th>
+      <th>Last Name</th>
       <th>Money Needed for</th>
       <th>Description</th>
       <th>Amount Needed</th>
@@ -28,6 +36,7 @@
     <%@need.each do |a|%>
     <tr>
       <td><%=a.first_name%></td>
+      <td><%=a.last_name%></td>
       <td><%=a.purpose%></td>
       <td><%=a.description%></td>
       <td><%=a.money%></td>
@@ -45,7 +54,8 @@
 <table>
   <thead>
     <tr>
-      <th>name</th>
+      <th>First name</th>
+      <th>Last name</th>
       <th>Money used for</th>
       <th>Description</th>
       <th>Amount Needed</th>
@@ -54,15 +64,16 @@
     </tr>
   </thead>
   <tbody>
+
     <%@lent.each do |l|%>
       <tr>
         <td><%=l.borrower.first_name%></td>
+        <td><%=l.borrower.last_name%></td>
         <td><%=l.borrower.purpose%></td>
         <td><%=l.borrower.description%></td>
         <td><%=l.borrower.money%></td>
         <td><%=l.borrower.raised%></td>
         <td><%=l.amount%></td>
-
       </tr>
     <%end%>
 

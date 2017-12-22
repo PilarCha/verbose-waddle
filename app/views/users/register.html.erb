@@ -1,76 +1,144 @@
-<style media="screen">
-  fieldset{
-    width: 30%;
-  }
-  .error{
-    color: red;
-  }
-  flash[:notice]{
-    color: green;
-  }
-  flash[:alert]{
-    color: yellow;
-    }
-</style>
-<h1>Welcome Son!</h1>
-<%if flash[:notice]%>
-<%=flash[:notice]%>
-<%end%>
-<fieldset>
-  <legend><h2>Lender</h2></legend>
-  <%if flash[:errors]%>
-  <%flash[:errors].each do |error|%>
-  <div class="error">
-    <%=error%>
-  </div>
-  <%end%>
-  <%end%>
-  <form action="/lenders" method="post">
-    <input type = 'hidden' name = "authenticity_token" value = "<%=form_authenticity_token%>">
-    <label>First Name</label>
-    <input type="text" name="lender[first_name]"><br>
-    <label>Last Name</label>
-    <input type="text" name="lender[last_name]"><br>
-    <label>Email</label>
-    <input type="text" name="lender[email]"><br>
-    <label>Password</label>
-    <input type="text" name="lender[password]"><br>
-    <label>Password Confirmation</label>
-    <input type="text" name="lender[password_confirmation]"><br>
-    <label>Money</label>
-    <input type="number" name='lender[money]' min='0' value='100' step="100">
-    <input type="submit" value="Register">
-    <a href="/login">Already a member?!</a>
-  </form>
-</fieldset>
-<fieldset>
-  <legend><h2>Borrower</h2></legend>
-  <%if flash[:alert]%>
-  <%flash[:alert].each do |a|%>
-  <div class="error">
-    <%=a%>
-  </div>
-  <%end%>
-  <%end%>
-  <form action="/borrowers" method="post">
-    <input type = 'hidden' name = "authenticity_token" value = "<%=form_authenticity_token%>">
-    <label>First Name</label>
-    <input type="text" name="borrower[first_name]"><br>
-    <label>Last Name</label>
-    <input type="text" name="borrower[last_name]"><br>
-    <label>Email</label>
-    <input type="text" name="borrower[email]"><br>
-    <label>Password</label>
-    <input type="text" name="borrower[password]"><br>
-    <label>Password Confirmation</label>
-    <input type="text" name="borrower[password_confirmation]"><br>
-    <label>Need money for:</label>
-    <input type="text" name="borrower[purpose]"><br>
-    <label>Description</label>
-    <input type="text" name="borrower[description]"><br>
-    <label>Amount Needed</label>
-    <input type="number" name='borrower[money]' min='0' value='100' step="100">
-    <input type="submit" value="Register">
-    <a href="/login">Already a member?!</a>
-  </form>
-</fieldset>
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Show Me The Money</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="./../assets/stylesheets/main.css" />
+		<noscript><link rel="stylesheet" href="./../assets/stylesheets/noscript.css" /></noscript>
+	</head>
+	<body class="is-loading">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<a href="#" class="logo">Show me the Money!</a>
+					</header>
+
+				<!-- Nav -->
+
+				<!-- Main -->
+					<div id="main">
+
+						<!-- Post -->
+							<section class="post">
+								<header class="major">
+
+									<h1>Welcome<br />
+									to the world of <a href="#lender"> Giving </a>  and <a href="#borrower"> Receiving </a> </h1>
+									<p>Register as a Lender to give Money to those you think need it more.<br />
+									Or you could ask for money by registering as a Borrower<br />
+									Give or Receive.</p>
+								</header>
+								<div class="image main"><%= image_tag("images/pexels.jpeg")%></div>
+                <header class="major">
+                  <h1>Register Here</h1><br>
+                  <p> <a href="/login">Already a Member?</a>  </p>
+                </header>
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<section>
+							<h1 id="lender">Lender</h1>
+							<%if flash[:errors]%>
+							<%flash[:errors].each do |error|%>
+							<div class="error">
+								<%=error%>
+							</div>
+							<%end%>
+							<%end%>
+							<form method="post" action="/lenders">
+								<input type = 'hidden' name = "authenticity_token" value = "<%=form_authenticity_token%>">
+								<div class="field">
+									<label for="name">First Name</label>
+									<input type="text" name="lender[first_name]"><br>
+								</div>
+								<div class="field">
+									<label for="name">Last Name</label>
+									<input type="text" name="lender[last_name]"><br>
+								</div>
+								<div class="field">
+									<label for="email">Email</label>
+									<input type="text" name="lender[email]"><br>
+								</div>
+								<div class="field">
+									<label for="password">Password</label>
+									<input type="password" name="lender[password]"><br>
+								</div>
+								<div class="field">
+									<label for="confirm">Password Confirmation</label>
+									<input type="password" name="lender[password_confirmation]"><br>
+								</div>
+								<div class="field">
+									<label for="money">Money Amount</label>
+									<input type="number" name='lender[money]' min='0' value='100' step="100">
+								</div>
+								<ul class="actions">
+									<li><input type="submit" value="Register As A Lender" /></li>
+								</ul>
+							</form>
+						</section>
+						<section>
+							<section>
+								<h1 id='borrower'>Borrower</h1>
+								<%if flash[:alert]%>
+								<%flash[:alert].each do |a|%>
+								<div class="error">
+									<%=a%>
+								</div>
+								<%end%>
+								<%end%>
+								<form method="post" action="/borrowers">
+									<input type = 'hidden' name = "authenticity_token" value = "<%=form_authenticity_token%>">
+									<div class="field">
+										<label for="name">First Name</label>
+										<input type="text" name="borrower[first_name]"><br>
+									</div>
+									<div class="field">
+										<label for="name">Last Name</label>
+										<input type="text" name="borrower[last_name]"><br>
+									</div>
+									<div class="field">
+										<label for="email">Email</label>
+										<input type="text" name="borrower[email]"><br>
+									</div>
+									<div class="field">
+										<label for="password">Password</label>
+										<input type="password" name="borrower[password]"><br>
+									</div>
+									<div class="field">
+										<label for="confirm">Password Confirmation</label>
+										<input type="password" name="borrower[password_confirmation]"><br>
+									</div>
+									<div class="field">
+										<label for="money">Amount Needed</label>
+										<input type="number" name='borrower[money]' min='0' value='100' step="100">
+									</div>
+									<div class="field">
+										<label for="purpose">Need Money For:</label>
+										<input type="text" name="borrower[purpose]"><br>
+									</div>
+									<div class="field">
+										<label for="description">Description</label>
+										<textarea name="borrower[description]" rows="4" cols="10" style="height:49px;"></textarea>
+										<!-- <input type="text" name="borrower[description]"><br> -->
+									</div>
+									<ul class="actions">
+										<li><input type="submit" value="Register as a Borrower" /></li>
+									</ul>
+								</form>
+							</section>
+						</section>
+					</footer>
+
+
+			</div>
+
+		<!-- Scripts -->
+
+
+	</body>
+</html>

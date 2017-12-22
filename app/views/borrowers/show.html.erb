@@ -1,9 +1,23 @@
-<a href="/logout">Logout!</a>
-<h2>Name: <%=@user.first_name%></h2>
-<h2>Amount Needed:<%=@user.money%> </h2>
-<h2>Raised:<%=@user.raised%></h2>
+<style media="screen">
+body{
+  background-color: white
+}
+</style>
+<header class="header">
+  <header id="header">
+    <a href="#" class="logo">Welcome Back: <%=@user.first_name%><br>
+     Amount Needed:<%=@user.money%><br>
+     <%if @user.raised%>
+     Raised:<%=@user.raised%>
+     <%else%>
+     Raised:No Money!
+     <%end%>
+   </a>
+  </header>
+  <a href="/logout">Logout!</a>
+</header>
 
-<h1>List of people who lent you money</h1>
+<h2>List of people who lent you money</h2>
 <table>
   <thead>
     <tr>

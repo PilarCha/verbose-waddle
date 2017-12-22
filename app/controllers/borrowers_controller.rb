@@ -3,7 +3,7 @@ class BorrowersController < ApplicationController
   def create
     borr=Borrower.new(borr_params)
     if borr.save
-      flash[:alert]="Welcome Borrower! Please sign in!"
+      flash[:notice]="Welcome Borrower! Please sign in!"
       redirect_to '/login'
     else
       flash[:alert]=borr.errors.full_messages
@@ -12,7 +12,7 @@ class BorrowersController < ApplicationController
   end
   def show
     @user=Borrower.find(params[:id])
-    @lenders=History.includes(:borrower,:lender).where(borrower_id: session[:id]).group(:lender_id)
+    @lenders=History.includes(:lender).where(borrower_id: session[:id]).select(:first_name,:email,:lender_id,"SUM(histories.amount) AS amount").group(:lender_id)
   end
   private
     def borr_params

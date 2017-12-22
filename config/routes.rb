@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-
+  root :to => 'users#register'
   #BORROWER
   post 'borrowers'=>'borrowers#create'
   get 'borrowers/show'
@@ -11,8 +11,7 @@ Rails.application.routes.draw do
   post 'lenders'=> 'lenders#create'
   get 'lenders/:id'=> 'lenders#show'
   #sessions
-  post 'sessionsl'=>'sessions#lend_login'
-  post 'sessionsb'=>'sessions#borr_login'
+  post 'sessions'=>'sessions#login'
   #logout
   get 'logout'=>'sessions#logout'
   #HISTORIES

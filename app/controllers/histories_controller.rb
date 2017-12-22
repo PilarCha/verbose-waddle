@@ -3,8 +3,7 @@ class HistoriesController < ApplicationController
     lender=Lender.find(session[:id])
     borrower=Borrower.find(params[:id])
     amount=params[:amount].to_i
-    lender.decrement(:money,amount)
-    if lender.money>=0
+    if lender.money>=amount
       lender.decrement!(:money,amount)
       borrower.increment!(:raised,amount)
       History.create(amount: amount, lender:lender, borrower:borrower)
